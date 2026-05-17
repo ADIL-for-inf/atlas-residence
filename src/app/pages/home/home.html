@@ -1,0 +1,283 @@
+<!-- NAVIGATION -->
+<nav id="mainNav" [class.scrolled]="isScrolled">
+  <div class="nav-container">
+    <!-- Logo -->
+    <div class="nav-logo">Atlas Residence<span>by Rent Inn</span></div>
+
+    <!-- Bouton hamburger (mobile/tablette) -->
+    <button class="nav-burger" (click)="toggleMenu()" [class.active]="menuOpen" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Menu desktop + mobile overlay -->
+    <div class="nav-menu-overlay" [class.open]="menuOpen" (click)="closeMenu()"></div>
+    <ul class="nav-links" [class.open]="menuOpen">
+      <li><a (click)="scrollToTop(); closeMenu()">Accueil</a></li>
+      <li><a (click)="scrollTo('about'); closeMenu()">À propos</a></li>
+      <li><a (click)="scrollTo('rooms'); closeMenu()">Hébergement</a></li>
+      <li><a (click)="scrollTo('amenities'); closeMenu()">Équipements</a></li>
+      <li><a (click)="scrollTo('reviews'); closeMenu()">Avis</a></li>
+      <li><a (click)="scrollTo('contact'); closeMenu()">Contact</a></li>
+    </ul>
+
+    <!-- Bouton Réserver (toujours visible) -->
+    <button class="nav-cta" (click)="openHotelRunner()">Réserver</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-accent"></div>
+  <img src="assets/824388400.jpg" class="hero-img" alt="Atlas Residence">
+  <div class="hero-content">
+    <p class="hero-eyebrow">Rabat, Maroc</p>
+    <h1 class="hero-title">L'Art du<br>Séjour <em>Raffiné</em></h1>
+    <p class="hero-subtitle">Un refuge d'élégance au cœur de Rabat, où le luxe moderne se mêle à l'hospitalité marocaine authentique.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" (click)="openHotelRunner()">Réserver votre séjour</button>
+      <button class="btn-secondary" (click)="scrollTo('about')">Découvrir →</button>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Défiler</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- BOOKING BAR -->
+<div class="booking-bar">
+  <div class="booking-field">
+    <span class="booking-label">Arrivée</span>
+    <input type="date" class="booking-value" [(ngModel)]="booking.checkin">
+  </div>
+  <div class="booking-field">
+    <span class="booking-label">Départ</span>
+    <input type="date" class="booking-value" [(ngModel)]="booking.checkout">
+  </div>
+  <div class="booking-field">
+    <span class="booking-label">Voyageurs</span>
+    <select class="booking-value" [(ngModel)]="booking.guests">
+      <option>1 adulte</option><option selected>2 adultes</option><option>3 adultes</option>
+      <option>4 adultes</option><option>2 adultes, 1 enfant</option><option>2 adultes, 2 enfants</option>
+    </select>
+  </div>
+  <div class="booking-field">
+    <span class="booking-label">Type de chambre</span>
+    <select class="booking-value" [(ngModel)]="booking.roomType">
+      <option value="">Toutes les chambres</option>
+      <option *ngFor="let r of rooms" [value]="r.name">{{ r.name }}</option>
+    </select>
+  </div>
+  <button class="booking-btn" (click)="openHotelRunner()">Vérifier disponibilité</button>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-text">
+    <p class="section-label">Notre histoire</p>
+    <h2 class="section-title">Une expérience<br>hors du commun</h2>
+    <div class="gold-divider"></div>
+    <p>Atlas Residence by Rent Inn est bien plus qu'un simple hôtel. C'est un sanctuaire de raffinement niché au cœur de Rabat, pensé pour ceux qui exigent l'excellence dans chaque détail de leur voyage.</p>
+    <p>Nos résidences alliant confort contemporain et charme architectural marocain offrent une retraite apaisante au milieu de la métropole dynamique.</p>
+    <div class="about-stats">
+      <div class="stat"><div class="stat-number">48</div><div class="stat-label">Suites & appartements</div></div>
+      <div class="stat"><div class="stat-number">4★</div><div class="stat-label">Service premium</div></div>
+      <div class="stat"><div class="stat-number">12+</div><div class="stat-label">Années d'excellence</div></div>
+      <div class="stat"><div class="stat-number">98%</div><div class="stat-label">Satisfaction clients</div></div>
+    </div>
+  </div>
+  <div class="about-visual">
+    <div class="about-img about-img-top"><img src="assets/339182529.jpg" alt="Atlas Residence"></div>
+    <div class="about-img-bot">
+      <div class="about-img"><img src="assets/770212578.jpg" alt="Atlas Residence"></div>
+      <div class="about-img"><img src="assets/824386517.jpg" alt="Atlas Residence"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ROOMS -->
+<section class="rooms-section" id="rooms">
+  <div class="rooms-header">
+    <div>
+      <p class="section-label">Hébergement</p>
+      <h2 class="section-title">Nos Chambres<br>& Suites</h2>
+    </div>
+    <p class="rooms-hint">Survolez une chambre pour découvrir sa galerie. Cliquez sur « Détail » pour en savoir plus.</p>
+  </div>
+  <div class="rooms-grid">
+    <div class="room-card" *ngFor="let room of rooms"
+         (mouseenter)="startSlide(room.id)"
+         (mouseleave)="stopSlide(room.id)">
+      <div class="room-img-wrap">
+        <img [src]="room.images[room.currentIndex]" [alt]="room.name" class="visible">
+        <div class="room-badge" [class.outline]="room.badgeStyle === 'outline'">{{ room.badge }}</div>
+        <div class="gallery-counter">{{ room.currentIndex+1 }} / {{ room.images.length }}</div>
+        <div class="gallery-progress" [style.width.%]="((room.currentIndex+1) / room.images.length) * 100"></div>
+        <div class="hover-segments">
+          <div *ngFor="let img of room.images; let i=index" class="hover-segment"
+               [class.active]="i === room.currentIndex"></div>
+        </div>
+      </div>
+      <div class="room-body">
+        <h3 class="room-name">{{ room.name }}</h3>
+        <p class="room-desc">{{ room.shortDesc }}</p>
+        <div class="room-footer">
+          <div class="room-actions-single">
+            <button class="btn-detail" (click)="openDetail(room)">Détail</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AMENITIES -->
+<section class="amenities" id="amenities">
+  <div class="amenities-header">
+    <p class="section-label">Équipements</p>
+    <h2 class="section-title">L'Excellence<br>à Chaque Instant</h2>
+    <div class="gold-divider"></div>
+  </div>
+  <div class="amenities-grid">
+    <div class="amenity"><div class="amenity-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="6" width="14" height="10" rx="1" stroke="#B8965A" stroke-width="1.2"/><path d="M7 6V5a3 3 0 016 0v1" stroke="#B8965A" stroke-width="1.2"/></svg></div><h3 class="amenity-name">Restaurant Gastronomique</h3><p class="amenity-desc">Cuisine marocaine et internationale préparée par nos chefs avec des produits locaux de saison.</p></div>
+    <div class="amenity"><div class="amenity-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h10" stroke="#B8965A" stroke-width="1.4" stroke-linecap="round"/></svg></div><h3 class="amenity-name">Business Center</h3><p class="amenity-desc">Salles de réunion équipées, connexion haut débit et services secrétariat.</p></div>
+    <div class="amenity"><div class="amenity-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2l1.8 5.5H18l-4.9 3.6 1.8 5.5L10 13l-4.9 3.6 1.8-5.5L2 7.5h6.2L10 2z" stroke="#B8965A" stroke-width="1.2"/></svg></div><h3 class="amenity-name">Conciergerie 24/7</h3><p class="amenity-desc">Notre équipe dédiée est disponible à toute heure pour exaucer vos moindres désirs.</p></div>
+    <div class="amenity"><div class="amenity-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="8" width="16" height="10" rx="1" stroke="#B8965A" stroke-width="1.2"/><path d="M6 8V6a4 4 0 018 0v2" stroke="#B8965A" stroke-width="1.2"/></svg></div><h3 class="amenity-name">Parking Sécurisé</h3><p class="amenity-desc">Parking privé surveillé 24h/24 avec service voiturier inclus.</p></div>
+    <div class="amenity"><div class="amenity-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#B8965A" stroke-width="1.2"/><path d="M10 6v4l3 2" stroke="#B8965A" stroke-width="1.2" stroke-linecap="round"/></svg></div><h3 class="amenity-name">Transfer Aéroport</h3><p class="amenity-desc">Service de transfert privé depuis et vers l'aéroport Mohammed V en berline de luxe.</p></div>
+    <div class="amenity"><div class="amenity-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3C7.13 3 4 6.13 4 10c0 5.25 7 12 7 12s7-6.75 7-12c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" stroke="#B8965A" stroke-width="1.2"/></svg></div><h3 class="amenity-name">Excursions Guidées</h3><p class="amenity-desc">Découvrez les trésors de Rabat et du Maroc avec nos guides privés certifiés.</p></div>
+  </div>
+</section>
+
+<!-- REVIEWS (carrousel) -->
+<section class="reviews-section" id="reviews">
+  <div class="reviews-inner">
+    <div class="reviews-top">
+      <div class="reviews-left">
+        <div class="booking-badge"><span>booking</span><span class="dot-com">.</span><span>com</span></div>
+        <p class="section-label">Avis vérifiés · Voyageurs authentiques</p>
+        <h2 class="section-title">La Parole<br>de nos Hôtes</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div class="reviews-score-block">
+        <div class="score-main"><span class="score-digit">8.4</span><span class="score-max">/10</span></div>
+        <div class="score-stars">★★★★☆</div>
+        <div class="score-label">Note moyenne vérifiée</div>
+        <div class="score-count">Très bien · 12 avis confirmés</div>
+      </div>
+    </div>
+    <div class="carousel-viewport">
+      <div class="carousel-track" [style.transform]="'translateX(-' + (carouselIdx * (carouselCardWidth + 24)) + 'px)'">
+        <div class="rev-card" *ngFor="let rev of reviews">
+          <div class="rev-card-top">
+            <div class="rev-score"><div class="rev-score-num">{{ rev.score }}</div></div>
+            <div class="rev-meta-top">
+              <div class="rev-room-type">{{ rev.roomType }}</div>
+              <div class="rev-platform">{{ rev.platform }}</div>
+            </div>
+          </div>
+          <div class="rev-stars" [innerHTML]="getStarsHTML(rev.score)"></div>
+          <p class="rev-text">« {{ rev.text }} »</p>
+          <div class="rev-footer">
+            <div class="rev-author">
+              <div class="rev-avatar">{{ rev.flag }}</div>
+              <div>
+                <div class="rev-author-name">{{ rev.author }}</div>
+                <div class="rev-author-loc">{{ rev.location }}</div>
+              </div>
+            </div>
+            <div class="rev-date">{{ rev.date }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <div class="carousel-arrows">
+        <button class="carousel-arrow" (click)="carouselMove(-1)" [disabled]="carouselIdx === 0">‹</button>
+        <button class="carousel-arrow" (click)="carouselMove(1)" [disabled]="carouselIdx >= maxCarouselIdx()">›</button>
+      </div>
+      <div class="carousel-dots" id="carouselDots"></div>
+      <div class="carousel-progress-wrap">
+        <div class="autoplay-ring" (click)="toggleAutoplay()">
+          <svg viewBox="0 0 20 20"><circle class="autoplay-ring-track" cx="10" cy="10" r="8"/><circle class="autoplay-ring-fill" [style.strokeDashoffset]="autoplayOffset" cx="10" cy="10" r="8"/></svg>
+          <div class="autoplay-icon"><svg viewBox="0 0 8 8"><polygon points="2,1 7,4 2,7" *ngIf="autoplayRunning; else pauseIcon"/></svg></div>
+          <ng-template #pauseIcon><svg viewBox="0 0 8 8"><rect x="1" y="1" width="2" height="6"/><rect x="4" y="1" width="2" height="6"/></svg></ng-template>
+        </div>
+        <div class="carousel-progress-bar"><div class="carousel-progress-fill" [style.width.%]="((carouselIdx+1)/(maxCarouselIdx()+1))*100"></div></div>
+        <div class="carousel-counter">{{ carouselIdx+1 }} / {{ maxCarouselIdx()+1 }}</div>
+      </div>
+    </div>
+    <div class="booking-attribution">
+      <span class="booking-attribution-text">Avis collectés et vérifiés par</span>
+      <div class="booking-logo-attr"><span>booking.com</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT & MAP -->
+<section class="contact-section" id="contact">
+  <div class="location">
+    <div class="location-content">
+      <p class="section-label">Contact & Accès</p>
+      <h2 class="section-title">Nous trouver &<br>Nous écrire</h2>
+      <div class="gold-divider"></div>
+      <div class="contact-info-block">
+        <div class="location-detail contact-clickable" (click)="openMap()">
+          <div class="location-detail-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div class="location-detail-text"><h4>Adresse</h4><p>Angle Rue Oued Ziz et Rue Oued Sebou, Agdal, Rabat 10080</p><span class="contact-hint">Ouvrir dans Google Maps →</span></div>
+        </div>
+        <div class="location-detail contact-clickable" (click)="callPhone()">
+          <div class="location-detail-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l2.27-2.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div class="location-detail-text"><h4>Téléphone</h4><p class="contact-link">+212 537 377 798</p><span class="contact-hint">Cliquez pour appeler →</span></div>
+        </div>
+        <div class="location-detail contact-clickable" (click)="sendEmail()">
+          <div class="location-detail-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg></div>
+          <div class="location-detail-text"><h4>Email</h4><p class="contact-link">atlasresidence01@gmail.com</p><span class="contact-hint">Cliquez pour écrire →</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="location-map">
+      <iframe src="https://www.google.com/maps?q=Atlas+Residence+Rabat+Agdal&output=embed" width="100%" height="100%" style="border:0; filter: grayscale(1) invert(0.92) contrast(1.2);" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- MODALE DETAIL CHAMBRE -->
+<div class="modal-backdrop" [class.open]="selectedRoom" (click)="closeDetail()">
+  <div class="modal-room" (click)="$event.stopPropagation()" *ngIf="selectedRoom">
+    <button class="modal-close" (click)="closeDetail()">✕</button>
+    <div class="modal-gallery">
+      <img *ngFor="let img of selectedRoom.images; let i=index" class="gallery-main" [class.active]="i === modalIndex" [src]="img" [alt]="selectedRoom.name">
+      <button class="gallery-arrow prev" (click)="modalPrev()">‹</button>
+      <button class="gallery-arrow next" (click)="modalNext()">›</button>
+      <div class="gallery-nav"><button *ngFor="let img of selectedRoom.images; let i=index" class="gallery-dot" [class.active]="i === modalIndex" (click)="modalIndex = i"></button></div>
+    </div>
+    <div class="modal-gallery-thumbs">
+      <img *ngFor="let img of selectedRoom.images; let i=index" class="gallery-thumb-img" [class.active]="i === modalIndex" [src]="img" (click)="modalIndex = i">
+    </div>
+    <div class="modal-room-body">
+      <div class="modal-room-header">
+        <div><div class="room-badge" style="position:static;display:inline-block;margin-bottom:0.75rem">{{ selectedRoom.badge }}</div><h2 class="modal-room-name">{{ selectedRoom.name }}</h2></div>
+      </div>
+      <div class="gold-divider"></div>
+      <p class="modal-room-desc">{{ selectedRoom.longDesc }}</p>
+      <div class="modal-features"><div class="modal-feature" *ngFor="let f of selectedRoom.features"><span class="feature-dot"></span>{{ f }}</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-brand">Atlas Residence</div><div class="footer-brand-sub">by Rent Inn</div><p class="footer-brand-text">Un havre de luxe et d'authenticité au cœur de Rabat, où chaque séjour devient une expérience mémorable.</p></div>
+    <div class="footer-col"><h4>Hébergement</h4><ul><li *ngFor="let r of rooms"><a (click)="scrollTo('rooms')">{{ r.name }}</a></li></ul></div>
+    <div class="footer-col"><h4>Nos services</h4><ul><li><a (click)="scrollTo('amenities')">Restaurant</a></li><li><a (click)="scrollTo('amenities')">Business Center</a></li><li><a (click)="scrollTo('amenities')">Conciergerie 24/7</a></li><li><a (click)="scrollTo('amenities')">Transfert aéroport</a></li><li><a (click)="scrollTo('amenities')">Excursions guidées</a></li></ul></div>
+    <div class="footer-col"><h4>Contact</h4><ul><li><a (click)="scrollTo('contact')">Nous trouver</a></li><li><a (click)="callPhone()">Téléphone</a></li><li><a (click)="sendEmail()">Email</a></li><li><a (click)="openMap()">Google Maps</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 Atlas Residence by Rent Inn. Tous droits réservés.</p>
+    <div class="footer-socials">
+      <div class="footer-social"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M8 1H9.5V2.5H8.5C8.22 2.5 8 2.72 8 3V4H9.5L9.25 5.5H8V11H6.5V5.5H5V4H6.5V3C6.5 1.9 7.4 1 8.5 1H9V1H8z" fill="#B8965A"/></svg></div>
+      <div class="footer-social"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1.5" y="1.5" width="9" height="9" rx="2.5" stroke="#B8965A" stroke-width="1"/><circle cx="6" cy="6" r="2" stroke="#B8965A" stroke-width="1"/><circle cx="8.75" cy="3.25" r="0.5" fill="#B8965A"/></svg></div>
+      <div class="footer-social"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 2.5h10L6 7 1 2.5z" stroke="#B8965A" stroke-width="1"/><rect x="1" y="2.5" width="10" height="7" rx="0.5" stroke="#B8965A" stroke-width="1"/></svg></div>
+    </div>
+  </div>
+</footer>

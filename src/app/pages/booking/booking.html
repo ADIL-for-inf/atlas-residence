@@ -1,0 +1,67 @@
+<section class="booking-page">
+  <div class="container">
+    <div class="booking-grid">
+      
+      <div class="summary-card" *ngIf="room">
+        <img [src]="room.images[0]" [alt]="room.name" class="summary-img">
+        <div class="summary-content">
+          <span class="room-category">{{ room.badge }}</span>
+          <h2>{{ room.name }}</h2>
+          <div class="price-info">{{ room.price }} MAD <span>/ nuit</span></div>
+          
+          <div class="divider"></div>
+          
+          <div class="calculation" *ngIf="nights > 0">
+            <p>Séjour de {{ nights }} nuits</p>
+            <div class="total-row">
+              <span>Total à payer</span>
+              <span class="total-amount">{{ totalPrice }} MAD</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-form">
+        <h2 class="section-title">Finaliser votre réservation</h2>
+        <form (submit)="onConfirm()">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Date d'arrivée</label>
+              <input type="date" [(ngModel)]="checkIn" name="checkIn" (change)="calculateTotal()" required>
+            </div>
+            <div class="form-group">
+              <label>Date de départ</label>
+              <input type="date" [(ngModel)]="checkOut" name="checkOut" (change)="calculateTotal()" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Prénom</label>
+              <input type="text" [(ngModel)]="firstName" name="firstName" placeholder="Jean" required>
+            </div>
+            <div class="form-group">
+              <label>Nom</label>
+              <input type="text" [(ngModel)]="lastName" name="lastName" placeholder="Dupont" required>
+            </div>
+          </div>
+
+          <div class="form-group"  style="margin-bottom: 1.5rem;" >
+            <label>Email</label>
+            <input type="email" [(ngModel)]="email" name="email" placeholder="jean.dupont@email.com" required>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+                   <label>Téléphone</label>
+           <input type="tel" [(ngModel)]="phone" name="phone" placeholder="+212 6..." required>
+            </div>
+
+          <button type="submit" class="btn-confirm" [disabled]="totalPrice <= 0">
+            Passer au paiement sécurisé
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>

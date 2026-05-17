@@ -1,13 +1,153 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>AtlasResidence</title>
+  <title>Atlas Résidence Rabat | Hôtel Agdal — Suites & Studios de Luxe | Rent-Inn</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- SEO -->
+  <meta
+    name="description"
+    content="Atlas Résidence by Rent-Inn — hôtel de luxe à Rabat Agdal. Suites spacieuses, studios avec terrasse, Wi-Fi fibre, parking gratuit. Réservez au meilleur prix."
+  >
+  <meta
+    name="keywords"
+    content="hôtel Rabat, hotel Rabat Agdal, hôtel luxe Rabat, suites Rabat, appartement Rabat, Atlas Résidence Rabat, Rent-Inn Rabat, hébergement Rabat, hotel Agdal Ryad, séjour Rabat Maroc"
+  >
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta
+    property="og:title"
+    content="Atlas Résidence Rabat | Hôtel Agdal — Suites & Studios de Luxe"
+  >
+  <meta
+    property="og:description"
+    content="Séjournez au cœur de Rabat Agdal dans nos suites et studios de luxe. Wi-Fi gratuit, parking, TV Smart Netflix."
+  >
+  <meta property="og:locale" content="fr_MA">
+  <meta property="og:site_name" content="Atlas Résidence by Rent-Inn">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Hotel",
+    "name": "Atlas Résidence by Rent-Inn",
+    "description": "Hôtel de luxe situé au cœur de Rabat Agdal, proposant suites spacieuses, studios avec terrasse, Wi-Fi gratuit, parking et service 24h/24.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Angle Rue Oued Ziz et Rue Oued Sebou",
+      "addressLocality": "Rabat",
+      "addressRegion": "Agdal-Ryad",
+      "postalCode": "10080",
+      "addressCountry": "MA"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 33.9716,
+      "longitude": -6.8498
+    },
+    "starRating": {
+      "@type": "Rating",
+      "ratingValue": "4"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "8.4",
+      "reviewCount": "12",
+      "bestRating": "10"
+    },
+    "priceRange": "950 MAD - 1500 MAD",
+    "checkinTime": "14:00",
+    "checkoutTime": "11:00",
+    "email": "atlasresidence01@gmail.com"
+  }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Bouton flottant personnalisé -->
+  <style>
+    .book-now-btn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      z-index: 99999;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+
+      padding: 14px 30px;
+      border-radius: 9999px;
+
+      background: linear-gradient(135deg, #c8a96a, #e5c88b);
+      color: #ffffff;
+      text-decoration: none;
+
+      font-family: 'Jost', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      transition: all 0.3s ease;
+    }
+
+    .book-now-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+      background: linear-gradient(135deg, #d6b574, #f2d798);
+    }
+
+    .book-now-btn:active {
+      transform: translateY(0);
+    }
+
+    .book-now-btn .icon {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    @media (max-width: 768px) {
+      .book-now-btn {
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+
+      .book-now-btn .icon {
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <!-- Application Angular -->
   <app-root></app-root>
+
+  <!-- Bouton de réservation personnalisé -->
+  <a
+    href="https://residence-atlas-by-rent-inn.hotelrunner.com/bv3/search"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="book-now-btn"
+    aria-label="Réserver maintenant"
+  >
+    <span class="icon">📅</span>
+    <span>Réserver Maintenant</span>
+  </a>
 </body>
 </html>
