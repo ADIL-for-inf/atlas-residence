@@ -51,7 +51,7 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
     },
     {
       id: 'balcon', name: 'Suite avec Balcon', badge: 'Vue panoramique', badgeStyle: 'outline',
-      images: ['assets/KING BEDS/1.jpeg','assets/KING BEDS/2.jpeg','assets/KING BEDS/3.jpeg','assets/KING BEDS/4.jpeg','assets/KING BEDS/5.jpeg','assets/KING BEDS/6.jpeg','assets/KING BEDS/7.jpeg','assets/KING BEDS/8.jpeg','assets/KING BEDS/9.jpeg'],
+      images: ['assets/BALCON/1.jpeg','assets/BALCON/2.jpeg','assets/BALCON/3.jpeg','assets/BALCON/4.jpeg','assets/BALCON/5.jpeg','assets/BALCON/6.jpeg','assets/BALCON/7.jpeg','assets/BALCON/8.jpeg','assets/BALCON/9.jpeg'],
       currentIndex: 0, interval: null as any,
       shortDesc: 'Suite luxueuse avec grand balcon privé offrant une vue imprenable sur Rabat.',
       longDesc: 'La Suite avec Balcon est notre chambre la plus photographiée. Son grand balcon privé s\'ouvre sur un panorama à 180° des toits de Rabat, du minaret Hassan jusqu\'à l\'horizon océan Atlantique. Lit king-size, salon lumineux, kitchenette complète, TV Smart, Wi-Fi fibre, climatisation, coffre-fort et champagne offert à l\'arrivée.',

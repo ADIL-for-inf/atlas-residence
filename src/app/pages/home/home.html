@@ -43,32 +43,29 @@
   <div class="hero-scroll"><span>Défiler</span><div class="scroll-line"></div></div>
 </section>
 
-<!-- BOOKING BAR -->
-<div class="booking-bar">
-  <div class="booking-field">
-    <span class="booking-label">Arrivée</span>
-    <input type="date" class="booking-value" [(ngModel)]="booking.checkin">
+<!-- BOOKING BAR - ELEGANT & UNIQUE -->
+<div class="booking-bar-elegant">
+  <div class="booking-line"></div>
+  
+  <div class="booking-container-elegant">
+    <div class="booking-content">
+      <div class="booking-icon-accent">✨</div>
+      
+      <div class="booking-text-elegant">
+        <h3 class="booking-title-elegant">Trouver votre séjour idéal</h3>
+        <p class="booking-subtitle-elegant">Découvrez nos tarifs et disponibilités en temps réel</p>
+      </div>
+    </div>
+
+    <button class="booking-btn-elegant" (click)="openHotelRunner()">
+      <span class="btn-label">Vérifier les disponibilités</span>
+      <span class="btn-icon-arrow">→</span>
+    </button>
   </div>
-  <div class="booking-field">
-    <span class="booking-label">Départ</span>
-    <input type="date" class="booking-value" [(ngModel)]="booking.checkout">
-  </div>
-  <div class="booking-field">
-    <span class="booking-label">Voyageurs</span>
-    <select class="booking-value" [(ngModel)]="booking.guests">
-      <option>1 adulte</option><option selected>2 adultes</option><option>3 adultes</option>
-      <option>4 adultes</option><option>2 adultes, 1 enfant</option><option>2 adultes, 2 enfants</option>
-    </select>
-  </div>
-  <div class="booking-field">
-    <span class="booking-label">Type de chambre</span>
-    <select class="booking-value" [(ngModel)]="booking.roomType">
-      <option value="">Toutes les chambres</option>
-      <option *ngFor="let r of rooms" [value]="r.name">{{ r.name }}</option>
-    </select>
-  </div>
-  <button class="booking-btn" (click)="openHotelRunner()">Vérifier disponibilité</button>
+
+  <div class="booking-line"></div>
 </div>
+
 
 <!-- ABOUT -->
 <section class="about" id="about">
